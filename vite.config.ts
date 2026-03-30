@@ -5,6 +5,9 @@ import { defineConfig } from "vite";
 
 // https://vite.dev/config/
 export default defineConfig({
+  // BASE_PATH is injected by the GitHub Actions workflow as /<repo-name>/
+  // Falls back to "/" for local development
+  base: process.env.BASE_PATH ?? "/",
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
