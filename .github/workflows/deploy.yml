@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
 
 # Required for the deploy-pages action to publish to Pages
 permissions:

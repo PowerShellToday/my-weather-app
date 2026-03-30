@@ -105,7 +105,7 @@ The API key is read from `import.meta.env.VITE_WEATHER_API_KEY` and is never com
 
 ## Deployment (GitHub Pages)
 
-The workflow at `.github/workflows/deploy.yml` runs on every push to `main`:
+The workflow at `.github/workflows/deploy.yml` runs on every push to `master`:
 
 1. Checks out the repo and sets up Node 22
 2. Runs `npm ci`
