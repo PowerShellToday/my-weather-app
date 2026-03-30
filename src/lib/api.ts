@@ -128,6 +128,20 @@ export async function fetchWeather(city: string): Promise<WeatherData> {
   };
 }
 
+export async function fetchCityFromCoords(lat: number, lon: number): Promise<string> {
+  const res = await fetch(
+    `${BASE_URL}/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${API_KEY}`
+  );
+  if (!res.ok) {
+    throw new Error("Failed to resolve your location.");
+  }
+  const data: GeoLocation[] = await res.json();
+  if (data.length === 0) {
+    throw new Error("Could not determine a city from your coordinates.");
+  }
+  return data[0].name;
+}
+
 export function owmIconUrl(iconCode: string): string {
   return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
 }
