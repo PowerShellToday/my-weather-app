@@ -7,6 +7,16 @@
     <meta name="description" content="PAHUL Weather — fast, beautiful weather forecasts" />
     <meta name="theme-color" content="#fb923c" />
     <title>PAHUL Weather</title>
+    <!-- Apply dark class before React boots to prevent flash of wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (stored === "dark" || (!stored && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
