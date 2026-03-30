@@ -8,6 +8,14 @@ export type WeatherCondition =
   | "foggy"
   | "windy";
 
+export interface ForecastDay {
+  date: string;
+  highC: number;
+  lowC: number;
+  iconCode: string;
+  description: string;
+}
+
 export interface WeatherData {
   city: string;
   country: string;
@@ -17,4 +25,6 @@ export interface WeatherData {
   humidity: number;
   windKph: number;
   description: string;
+  iconCode: string;
+  forecast: ForecastDay[];
 }

@@ -1,33 +1,36 @@
-import { useState } from "react";
 import { Header } from "@/components/Header";
 import { SearchBar } from "@/components/SearchBar";
 import { WeatherDisplay } from "@/components/WeatherDisplay";
 import { DEFAULT_CONDITION, getGradientConfig } from "@/lib/weather";
-import type { WeatherCondition } from "@/types/weather";
+import { useWeather } from "@/hooks/useWeather";
 
 function App() {
-  const [city, setCity] = useState("");
-  const [condition] = useState<WeatherCondition>(DEFAULT_CONDITION);
+  const { data, isLoading, error, search } = useWeather();
 
+  const condition = data?.condition ?? DEFAULT_CONDITION;
   const gradient = getGradientConfig(condition);
-
-  function handleSearch(searchedCity: string) {
-    setCity(searchedCity);
-    // Phase 2: call weather API here and update `condition` from response
-  }
 
   return (
     <div className={`min-h-screen transition-all duration-700 ${gradient.background}`}>
-      <main className="mx-auto max-w-2xl px-4 py-8 md:py-16 flex flex-col gap-8">
+      <main className="mx-auto max-w-2xl px-4 py-8 md:py-16 flex flex-col gap-6">
         <Header textClass={gradient.text} conditionLabel={gradient.label} />
         <SearchBar
-          onSearch={handleSearch}
+          onSearch={search}
+          isLoading={isLoading}
           accentClass={gradient.accent}
           textClass={gradient.text}
         />
-        {city && (
+        {error && (
+          <div
+            role="alert"
+            className="rounded-xl border border-red-300/40 bg-red-500/25 backdrop-blur-sm px-4 py-3 text-sm font-medium text-white shadow"
+          >
+            {error}
+          </div>
+        )}
+        {data && (
           <WeatherDisplay
-            city={city}
+            data={data}
             cardClass={gradient.card}
             textClass={gradient.text}
           />
